@@ -15,10 +15,4 @@ Este proyecto es una aplicación web para la búsqueda semántica de documentos 
 - Backend: Flask (Python)
 - Base de datos: SQLite
 - Bibliotecas adicionales: PyPDF2 (Python), Gensim (Python), ApexCharts
-
-## Instalación
-
-1. Clona el repositorio:
-
-```bash
-git clone https://github.com/tu-usuario/tu-repositorio.git
+ 
