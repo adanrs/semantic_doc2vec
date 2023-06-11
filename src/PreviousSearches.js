@@ -18,7 +18,14 @@ const PreviousSearches = ({ viewSearchResults, handleNewSearch }) => {
       })
       .catch((error) => console.log(error));
   }, []);
-
+  const formatSearchDuration = (duration) => {
+    const milliseconds = parseInt(duration.slice(-6)); // Extract the milliseconds
+    const seconds = parseInt(duration.slice(2, 4)); // Extract the seconds
+    const minutes = parseInt(duration.slice(0, 1)); // Extract the minutes
+    const hours = parseInt(duration.slice(0, 1)); // Extract the hours
+  
+    return `${hours}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}.${milliseconds.toString().padStart(3, '0')} segundos`;
+  };
   return (
     <div className="previous-searches">
       <h2>Búsquedas anteriores</h2>
@@ -35,6 +42,7 @@ const PreviousSearches = ({ viewSearchResults, handleNewSearch }) => {
                 <th>Índice</th>
                 <th>Término</th>
                 <th>Nombre Documento</th>
+                <th>Segundos De Busqueda</th>
                 <th>Similaridad</th>
                 <th>Fecha y hora</th>
               </tr>
@@ -45,6 +53,9 @@ const PreviousSearches = ({ viewSearchResults, handleNewSearch }) => {
                   <td>{index + 1}</td>
                   <td>{search.query}</td>
                   <td>{search.most_similar_doc}</td>
+                  <td>{formatSearchDuration(search.search_duration)}</td>
+
+
                   <td>{search.similarity}</td>
                   <td>{search.timestamp}</td>
                 </tr>
