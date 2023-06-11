@@ -1,0 +1,33 @@
+.ModelsDoc2Vec {
+  margin-top: 20px;
+}
+
+.ModelsDoc2Vec h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.ModelsDoc2Vec table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.ModelsDoc2Vec th,
+.ModelsDoc2Vec td {
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+.ModelsDoc2Vec th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.ModelsDoc2Vec td {
+  text-align: center;
+}
+
+.ModelsDoc2Vec p {
+  margin-top: 10px;
+}

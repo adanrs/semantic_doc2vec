@@ -1,0 +1,64 @@
+.results {
+    margin: 40px auto;
+    max-width: 1200px;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .results h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .results table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  
+  .results th,
+  .results td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .results th {
+    background-color: #f9f9f9;
+    font-weight: bold;
+  }
+  
+  .results tbody tr:nth-child(even) {
+    background-color: #f0f0f0;
+  }
+  
+  .results tbody tr:hover {
+    background-color: #e6e6e6;
+  }
+  
+  .results p {
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+  
+  .results button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .results button:hover {
+    background-color: #0056b3;
+  }
+  .table-container {
+    width: 100%; /* Hace que el contenedor de la tabla ocupe el 100% del ancho disponible */
+    overflow: auto; /* Permite que el contenido de la tabla sea desplazable si excede el ancho del contenedor */
+  }
+  
