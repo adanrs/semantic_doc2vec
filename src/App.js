@@ -3,12 +3,12 @@ import SearchForm from './SearchForm';
 import Results from './Results';
 import PreviousSearches from './PreviousSearches';
 import ModelsDoc2Vec from './ModelsDoc2Vec';
-import ModelsChart from './ModelsChart';
+
 function App() {
   const [searchResult, setSearchResult] = useState([]);
   const [showResults, setShowResults] = useState(false);
   const [showPreviousSearches, setShowPreviousSearches] = useState(false);
-  const [showModels, setShowModels] = useState(false); // Nuevo estado para controlar la visualización de los modelos
+  const [showModels, setShowModels] = useState(false);
   const [searchTime, setSearchTime] = useState(0);
 
   const handleSearch = async (query) => {

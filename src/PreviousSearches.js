@@ -34,7 +34,7 @@ const PreviousSearches = ({ viewSearchResults, handleNewSearch }) => {
         <>
           <h3>Gráfico de las últimas cien búsquedas por similaridad</h3>
           <SearchesChart searches={searches} />
-          <button onClick={() => handleNewSearch()}>Realizar otra búsqueda</button>
+         
 
           <table>
             <thead>
@@ -52,12 +52,16 @@ const PreviousSearches = ({ viewSearchResults, handleNewSearch }) => {
                 <tr key={index}>
                   <td>{index + 1}</td>
                   <td>{search.query}</td>
-                  <td>{search.most_similar_doc}</td>
+ 
+                  <td><a href="{{ search.path] }}">{search.most_similar_doc}</a></td>
+                  
+
                   <td>{formatSearchDuration(search.search_duration)}</td>
 
 
                   <td>{search.similarity}</td>
                   <td>{search.timestamp}</td>
+        
                 </tr>
               ))}
             </tbody>

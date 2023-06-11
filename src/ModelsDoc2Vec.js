@@ -12,7 +12,7 @@ const ModelsDoc2Vec = (handleNewSearch) => {
     // Realizar la llamada al endpoint de resultados de búsqueda previos
     fetch('http://localhost:5000/models')
       .then((response) => response.json())
-      .then((data) => setModels(data.slice(-100).sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp)))) // Obtener solo los últimos cien elementos
+      .then((data) => setModels(data.slice(-10).sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp)))) // Obtener solo los últimos cien elementos
       .catch((error) => console.log(error));
   }, []);
 

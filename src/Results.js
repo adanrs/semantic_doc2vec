@@ -4,7 +4,7 @@ import ApexCharts from 'react-apexcharts';
 
 const Results = ({ searchResult, viewPreviousSearches, handleNewSearch, searchTime }) => {
   // Obtener los datos de similaridad y los índices de resultado
-  const similarities = searchResult.map((result) => result[1]);
+  const similarities = searchResult.map((result) => result.similarity);
   const resultIndices = searchResult.map((_, index) => index + 1);
 
   // Configurar los datos y opciones del gráfico
@@ -39,37 +39,42 @@ const Results = ({ searchResult, viewPreviousSearches, handleNewSearch, searchTi
       {searchResult.length > 0 ? (
         <>
           <div className="search-time">Tiempo de búsqueda: {searchTime} segundos</div>
-          <div className="table-container"> {/* Agrega un contenedor para la tabla */}
+          {searchResult[0] && (
+            <div className="most-similar">
+              <div>Documento más similar: {searchResult[0].document}</div>
+              <div>Similaridad: {searchResult[0].similarity}</div>
+              <div>Ruta: {searchResult[0].path}</div>
+            </div>
+          )}
           <div className="chart-container">
             <ApexCharts options={chartOptions} series={chartSeries} type="line" height={300} />
-            <button onClick={handleNewSearch}>Realizar otra búsqueda</button>
           </div>
-            <table>
-              <thead>
-                <tr>
-                  <th>Índice</th>
-                  <th>Documento más similar</th>
-                  <th>Similaridad</th>
+          <table>
+            <thead>
+              <tr>
+                <th>Índice</th>
+                <th>Documento</th>
+                <th>Similaridad</th>
+                <th>Ruta</th>
+              </tr>
+            </thead>
+            <tbody>
+              {searchResult.map((result, index) => (
+                <tr key={index}>
+                  <td>{index + 1}</td>
+                  <td>{result.document}</td>
+                  <td>{result.similarity}</td>
+                  <td>{result.path}</td>
                 </tr>
-              </thead>
-              <tbody>
-                {searchResult.map((result, index) => (
-                  <tr key={index}>
-                    <td>{index + 1}</td>
-                    <td>{result[0]}</td>
-                    <td>{result[1]}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-
+              ))}
+            </tbody>
+          </table>
+          <button onClick={handleNewSearch}>Realizar otra búsqueda +</button>
         </>
       ) : (
         <p>No se encontraron resultados.</p>
       )}
       <button onClick={viewPreviousSearches}>Ver búsquedas anteriores</button>
-     
     </div>
   );
 };

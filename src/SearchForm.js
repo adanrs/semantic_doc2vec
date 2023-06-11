@@ -28,6 +28,7 @@ function SearchForm({ handleSearch, viewPreviousSearches, searchResult, searchTi
         </div>
       </form>
       <ModelsDoc2Vec />
+      
       {searchResult && searchResult.length > 0 && <Results searchResult={searchResult} searchTime={searchTime} />}
     </div>
   );
