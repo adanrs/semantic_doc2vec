@@ -2,17 +2,18 @@ import React, { useState } from 'react';
 import SearchForm from './SearchForm';
 import Results from './Results';
 import PreviousSearches from './PreviousSearches';
-
+import ModelsDoc2Vec from './ModelsDoc2Vec';
+import ModelsChart from './ModelsChart';
 function App() {
   const [searchResult, setSearchResult] = useState([]);
   const [showResults, setShowResults] = useState(false);
   const [showPreviousSearches, setShowPreviousSearches] = useState(false);
-  const [searchTime, setSearchTime] = useState(0); // Nuevo estado para almacenar el tiempo de búsqueda
+  const [showModels, setShowModels] = useState(false); // Nuevo estado para controlar la visualización de los modelos
+  const [searchTime, setSearchTime] = useState(0);
 
   const handleSearch = async (query) => {
-    // Realizar la llamada al endpoint de búsqueda y obtener los resultados
     try {
-      const startTime = new Date(); // Registrar el tiempo de inicio de la búsqueda
+      const startTime = new Date();
 
       const response = await fetch('http://localhost:5000/search', {
         method: 'POST',
@@ -23,9 +24,9 @@ function App() {
       });
       const data = await response.json();
 
-      const endTime = new Date(); // Registrar el tiempo de finalización de la búsqueda
-      const searchDuration = (endTime - startTime) / 1000; // Calcular la duración de la búsqueda en segundos
-      setSearchTime(searchDuration); // Actualizar el estado del tiempo de búsqueda
+      const endTime = new Date();
+      const searchDuration = (endTime - startTime) / 1000;
+      setSearchTime(searchDuration);
 
       setSearchResult(data.similar_docs);
       setShowResults(true);
@@ -47,7 +48,13 @@ function App() {
   const handleNewSearch = () => {
     setSearchResult([]);
     setShowResults(false);
-    setSearchTime(0); // Reiniciar el tiempo de búsqueda
+    setSearchTime(0);
+  };
+
+  const handleViewModels = () => {
+    setShowResults(false);
+    setShowPreviousSearches(false);
+    setShowModels(true);
   };
 
   return (
@@ -58,12 +65,15 @@ function App() {
           searchResult={searchResult}
           viewPreviousSearches={viewPreviousSearches}
           handleNewSearch={handleNewSearch}
-          searchTime={searchTime} // Pasar el tiempo de búsqueda como prop a Results
+          searchTime={searchTime}
         />
       ) : showPreviousSearches ? (
-        <PreviousSearches viewSearchResults={viewSearchResults} />
+        <PreviousSearches viewSearchResults={viewSearchResults} handleNewSearch={handleNewSearch} />
+
+      ) : showModels ? (
+        <ModelsDoc2Vec />
       ) : (
-        <SearchForm handleSearch={handleSearch} viewPreviousSearches={viewPreviousSearches} />
+        <SearchForm handleSearch={handleSearch} viewPreviousSearches={viewPreviousSearches} handleViewModels={handleViewModels} />
       )}
     </div>
   );

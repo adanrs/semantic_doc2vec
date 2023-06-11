@@ -69,8 +69,7 @@ const Results = ({ searchResult, viewPreviousSearches, handleNewSearch, searchTi
         <p>No se encontraron resultados.</p>
       )}
       <button onClick={viewPreviousSearches}>Ver búsquedas anteriores</button>
-      <br />
-      <button onClick={handleNewSearch}>Realizar otra búsqueda</button>
+     
     </div>
   );
 };

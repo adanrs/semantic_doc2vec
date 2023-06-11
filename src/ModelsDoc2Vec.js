@@ -1,65 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import './ModelsDoc2Vec.css';
 import ApexCharts from 'apexcharts';
+import ModelsChart from './ModelsChart';
 
-const ModelsDoc2Vec = () => {
+const ModelsDoc2Vec = (handleNewSearch) => {
   const [models, setModels] = useState([]);
 
-  useEffect(() => {
-    const fetchModels = async () => {
-      try {
-        const response = await fetch('http://localhost:5000/models');
-        const data = await response.json();
-        setModels(data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
 
-    fetchModels();
+
+  useEffect(() => {
+    // Realizar la llamada al endpoint de resultados de búsqueda previos
+    fetch('http://localhost:5000/models')
+      .then((response) => response.json())
+      .then((data) => setModels(data.slice(-100).sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp)))) // Obtener solo los últimos cien elementos
+      .catch((error) => console.log(error));
   }, []);
 
-  useEffect(() => {
-    if (models.length === 0) return; // Agrega una verificación para evitar renderizar el gráfico si no hay datos
 
-    const chartOptions = {
-      chart: {
-        type: 'bar',
-        height: 350,
-      },
-      xaxis: {
-        categories: models.map((model) => model.timestamp),
-        labels: {
-          rotate: -45,
-        },
-      },
-      yaxis: {
-        title: {
-          text: 'Tamaño del modelo',
-        },
-      },
-    };
-
-    const chartSeries = [
-      {
-        name: 'Tamaño del modelo',
-        data: models.map((model) => model.model_size),
-      },
-    ];
-
-    const chart = new ApexCharts(document.querySelector('#ModelsDoc2Vec-chart'), chartOptions);
-
-    chart.render();
-
-    return () => {
-      chart.destroy();
-    };
-  }, [models]);
 
   return (
     <div className="ModelsDoc2Vec">
       <h2>Modelos</h2>
-
+      <ModelsChart models={models} />
+   
       {models ? (
         models.length > 0 ? (
           <>
@@ -83,6 +46,7 @@ const ModelsDoc2Vec = () => {
                   </tr>
                 ))}
               </tbody>
+              <div id="ModelsDoc2Vec-chart"></div>
             </table>
           </>
         ) : (
